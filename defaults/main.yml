@@ -1,0 +1,6 @@
+---
+
+k8s_app_download_definition: false
+# k8s_app_definition_url: ""  # must be defined
+# k8s_app_definition_filename: ""  # must be defined
+k8s_app_definition_dir: "/root"

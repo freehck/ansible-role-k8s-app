@@ -1,0 +1,19 @@
+---
+
+- name: download app definition
+  get_url:
+    url: "{{ k8s_app_definition_url }}"
+    dest: "{{ k8s_app_definition_dir }}/{{ k8s_app_definition_filename }}"
+  when: k8s_app_download_definition|bool
+
+- name: copy predefined app definition
+  copy:
+    src: "{{ k8s_app_definition_filename }}.original"
+    dest: "{{ k8s_app_definition_dir }}/{{ k8s_app_definition_filename }}"
+  when: not k8s_app_download_definition|bool
+
+- name: apply app definition
+  command: kubectl apply -f {{ k8s_app_definition_dir }}/{{ k8s_app_definition_filename }}
+  register: k8s_app_definition_apply
+  changed_when: "'created' in k8s_app_definition_apply.stdout"
+  run_once: true

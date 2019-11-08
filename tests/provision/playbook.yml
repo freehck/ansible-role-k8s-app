@@ -1,0 +1,21 @@
+---
+
+- hosts: k8s_cluster
+  become: true
+  roles:
+    - role: freehck.k8s_base
+    - role: freehck.k8s_init
+      when: k8s_is_master | default(false)
+    - role: freehck.k8s_join
+    - role: freehck.k8s_app
+      when: k8s_is_master | default(false)
+      k8s_calico_ver: "v3.10"
+      k8s_app_definition_filename: "calico-{{ k8s_calico_ver }}.yml"
+      # --------------------
+      # deploy from pre-downloaded service definition (uncomment it to test)
+      k8s_app_download_definition: false
+      # # --------------------
+      # # download service definition from site (uncomment it to test)
+      # k8s_app_download_definition: true
+      # k8s_app_definition_url: |-
+      #   https://docs.projectcalico.org/{{ k8s_calico_ver }}/manifests/calico.yaml

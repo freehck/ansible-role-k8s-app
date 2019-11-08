@@ -1,0 +1,22 @@
+---
+galaxy_info:
+  author: Dmitrii Kashin
+  description: install kubernetes app from url or one of preset definitions
+  role_name: k8s_app
+  license: MIT
+
+  min_ansible_version: 2.7
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - bionic
+
+  galaxy_tags:
+    - kubernetes
+    - k8s
+    - application
+    - app
+
+allow_duplicates: true
+dependencies: []
